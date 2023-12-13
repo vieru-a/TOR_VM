@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" href="{% static 'TOR_VM_store/css/style.css' %}" rel="stylesheet" />
+</head>
+<body>
+
+<div style="height: 110px">
+    <img style="width: 100%; height: 100%" src="{% static 'TOR_VM_store/images/header_image.jpg' %}" alt="Нет данных">
+</div>
+
+<div class="menu">
+    <div class="menu_left">
+
+    </div>
+    <div class="menu_right">
+        <nav id="menu1">
+            <ul>
+                {% for m in menu %}
+                    <li><a href="index.html">{{ m }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+</div>
+<!--/menu-->
+
+{% block content %}
+
+{% endblock content %}
+
+</body>
+</html>

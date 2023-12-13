@@ -1,0 +1,99 @@
+body{
+    display: block;
+    margin: 0;
+}
+.menu {
+	height: 36px;
+	background: #256CB3;
+}
+
+.menu_right {
+	height: 35px;
+	background: #60ABEC;
+	float:right;
+}
+
+/* Menu
+-----------------------------------------------------------------------------*/
+#menu1 {
+    position:relative;
+    display:block;
+    width:100%;
+    height:auto;
+    z-index:10;
+}
+    #menu1 ul {
+        position:relative;
+        display:block;
+        margin:0px;
+        padding:0px;
+        width:100%;
+        height:auto;
+        list-style:none;
+        background:#256CB3;
+    }
+    #menu1 > ul::after{
+        display:block;
+        width:100%;
+        height:0px;
+        clear:both;
+        content:" ";
+    }
+        #menu1 ul li{
+            position:relative;
+            display:block;
+            float:left;
+            width:auto;
+            height:auto;
+        }
+            #menu1 ul li a{
+                display:block;
+                padding:9px;
+                font-size:13px;
+                font-family:Arial, sans-serif;
+                color:#ffffef;
+                line-height:1.3em;
+                text-decoration:none;
+                font-weight:bold;
+                text-transform:uppercase;
+                height:36px;
+                box-sizing:border-box;
+            }
+            #menu1 ul li > a:hover, #menu1 ul li:hover > a{
+                background:#60ABEC;
+                color:#FFF;
+            }
+#menu1 ul li ul{
+    position:absolute;
+    top:36px;
+    left:0px;
+    display:none;
+    width:200px;
+    background:#60ABEC;
+}
+#menu1 ul li:hover ul{display:block;}/*эта строчка реализует механизм выпадения*/
+    #menu1 ul li ul li{
+        float:none;
+        width:100%;
+    }
+        #menu1 ul li ul li a{
+            display:block;
+            text-transform:none;
+            height:auto;
+            padding:7px 25px;
+            width:100%;
+            box-sizing:border-box;
+            border-top:1px solid #ffffff;
+        }
+        #menu1 ul li ul li:first-child a{border-top:0px;}
+        #menu1 ul li ul li a:hover{
+            background:#D7D6D4;
+            color:#2D5B89;
+        }
+/* Начало Активный пункт меню
+-----------------------------------------------------------------------------*/
+#menu1 ul li a.active{
+	color:#fff;
+	text-decoration:none;
+	background: #60ABEC;
+}
