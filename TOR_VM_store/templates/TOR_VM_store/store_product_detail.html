@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2>{{ product.name }}</h2>
+    <div class="cat-image">
+        <p><a href="{{ product.image.url }}"><img style="width: 100%" src="{{ product.image.url }}" alt="Нет данных"></a></p>
+    </div>
+    <div class="cat-description">
+        <p> Артикул: {{ product.article_number }} </p>
+        <p> Цена: {{ product.price }} руб. </p>
+        <p> Описание: {{ product.description }} </p>
+    </div>
+
+{% endblock content %}

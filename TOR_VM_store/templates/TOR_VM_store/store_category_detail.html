@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2>Категория: {{ category.name }}</h2>
+    <div class="cat-image">
+        <p><img src="{{ category.image.url }}" alt="Нет данных"></p>
+    </div>
+    <div class="cat-description">
+        <p>{{ category.description }}</p>
+    </div>
+    <div class="cat-products">
+
+    {% if not category.get_children %}
+
+    <h2>Товары:</h2>
+    {% for p in products %}
+        <div class="product-block">
+            <div class="product-image">
+                <p><a href='{{ p.get_absolute_url }}'><img style="width: 100px" src='{{ p.image.url }}' alt="Нет данных"></a></p>
+            </div>
+            <div class="product-description">
+                <p> Артикул: {{ p.article_number }} </p>
+                <p> Название: <a href="{{ p.get_absolute_url }}">{{ p.name }}</a> </p>
+                <p> Цена: {{ p.price }} руб. </p>
+                <p> Описание: {{ p.description }} </p>
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+
+    {% else %}
+
+    <h2>Подкатегории:</h2>
+    {% for c in category.get_children %}
+        <div class="product-block">
+            <div class="product-image">
+                <p><a href='{{ c.image.url }}'><img style="width: 100px" src='{{ c.image.url }}' alt="Нет данных"></a></p>
+            </div>
+            <div class="product-description">
+                <h4>Подкатегория: <a href="{{ c.get_absolute_url }}">{{ c.name }}</a></h4>
+                <p>Описание: {{ c.description }}</p>
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+
+    {% endif %}
+
+    </div>
+{% endblock content %}
