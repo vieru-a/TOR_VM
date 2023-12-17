@@ -3,13 +3,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{ title }}</title>
     <link type="text/css" href="{% static 'TOR_VM_store/css/style.css' %}" rel="stylesheet" />
 </head>
 <body>
 
-<div style="height: 110px">
-    <img style="width: 100%; height: 100%" src="{% static 'TOR_VM_store/images/header_image.jpg' %}" alt="Нет данных">
+<div class="header">
+    <a href="{% url 'store_main' %}">
+        <img style="width: 100%; height: 100%" src="{% static 'TOR_VM_store/images/header_image.jpg' %}" alt="Нет данных">
+    </a>
 </div>
 
 <div class="menu">
@@ -18,19 +20,28 @@
     </div>
     <div class="menu_right">
         <nav id="menu1">
-            <ul>
-                {% for m in menu %}
-                    <li><a href="index.html">{{ m }}</a></li>
+            <ul class="cats">
+                {% for m in nav_menu %}
+                    <li><a href="{% url m.url_name %}">{{ m.title }}</a></li>
                 {% endfor %}
             </ul>
         </nav>
     </div>
 </div>
-<!--/menu-->
 
+<div class="content">
+    <div class="content_left">
+        <ul>
+            {% for c in categories %}
+                <li> <a href="{{ c.get_absolute_url }}">{{ c }}</a> </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="content_right">
 {% block content %}
 
 {% endblock content %}
-
+    </div>
+</div>
 </body>
 </html>

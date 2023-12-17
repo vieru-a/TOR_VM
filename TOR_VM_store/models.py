@@ -1,4 +1,6 @@
 import os
+
+from django.urls import reverse
 from transliterate import translit
 
 from django.db import models
@@ -37,7 +39,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
     description = models.TextField(max_length=1000, verbose_name='Описание товара')
     is_available = models.BooleanField(default=True, verbose_name='В наличии')
-    cat = TreeForeignKey('Category', on_delete=models.PROTECT, related_name='Products', verbose_name='Категория')
+    cat = TreeForeignKey('Category', on_delete=models.PROTECT, verbose_name='Категория')
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -47,6 +49,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.article_number
+
+    def get_absolute_url(self):
+        return reverse('store_product_detail', kwargs={'product_slug': self.slug})
 
     class Meta:
         verbose_name = 'Товар'
@@ -75,6 +80,9 @@ class Category(MPTTModel):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('store_category_detail', kwargs={'category_slug': self.slug})
 
     class Meta:
         verbose_name = 'Категория'

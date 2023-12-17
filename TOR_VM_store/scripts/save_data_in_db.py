@@ -12,7 +12,6 @@ def save_product(product, category):
         price=product['price'],
         cat=category,
     )
-    new_product.save()
     print(f'Товар {new_product.article_number} сохранен')
 
 
@@ -28,7 +27,6 @@ def run():
             description=d['description'],
             type=Category.CATEGORY
         )
-        new_category.save()
         print(f'Категория {new_category.name} сохранена')
 
         if 'subcategories' in d.keys():
@@ -40,7 +38,6 @@ def run():
                     type=Category.SUBCATEGORY,
                     parent=new_category
                 )
-                new_subcategory.save()
                 print(f'Подкатегория {new_subcategory.name} сохранена')
 
                 for p in s['products']:

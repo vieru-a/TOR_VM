@@ -84,11 +84,12 @@ def save_category(url, path):
     category_data = {}
 
     lol = list(filter(lambda x: x != '', soup.find('ul', {'class': 'breadcrumb'}).text.split('\n')))
-    category_data['name'] = re.sub('"', '_', lol[-1])
+    category_data['name'] = lol[-1]
 
     try:
         image_url = soup.find('div', {'class': 'col-sm-2'}).find('img').get('src')
-        category_data['image'] = save_image(image_url, category_data['name'], path)
+        image_name = re.sub('"', '_', category_data['name'])
+        category_data['image'] = save_image(image_url, image_name, path)
     except AttributeError:
         category_data['image'] = 'Нет данных'
 
