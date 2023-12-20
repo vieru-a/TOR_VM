@@ -1,4 +1,5 @@
 import os
+import re
 
 from django.urls import reverse
 from transliterate import translit
@@ -43,7 +44,7 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            slug_string = translit(f'{self.article_number}', 'ru', reversed=True)
+            slug_string = re.sub('.', '_', self.slug)
             self.slug = get_slug(slug_string, Product)
         return super().save(*args, **kwargs)
 

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'TOR_VM_store.apps.TorVmStoreConfig',
     'TOR_VM_site.apps.TorVmSiteConfig',
+    'users.apps.UsersConfig',
     'django_extensions',
     'rest_framework',
     'mptt',

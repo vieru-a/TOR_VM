@@ -26,7 +26,8 @@ from django.urls import re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(TOR_VM_store.urls.urlpatterns))
+    path('', include('TOR_VM_store.urls')),
+    path('users/', include('users.urls', namespace='users'))
 ]
 
 
