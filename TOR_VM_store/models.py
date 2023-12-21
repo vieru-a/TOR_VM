@@ -42,9 +42,10 @@ class Product(models.Model):
     is_available = models.BooleanField(default=True, verbose_name='В наличии')
     cat = TreeForeignKey('Category', on_delete=models.PROTECT, verbose_name='Категория')
 
+    # подумать над обработкой слага с артикулом
     def save(self, *args, **kwargs):
         if not self.slug:
-            slug_string = re.sub('.', '_', self.slug)
+            slug_string = re.sub('.', '_', self.article_number)
             self.slug = get_slug(slug_string, Product)
         return super().save(*args, **kwargs)
 

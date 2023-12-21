@@ -1,4 +1,5 @@
 {% load static %}
+{% load store_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,35 +14,11 @@
         <img style="width: 100%; height: 100%" src="{% static 'TOR_VM_store/images/header_image.jpg' %}" alt="Нет данных">
     </a>
 </div>
-{#сделать инклюд теги для меню#}
-<div class="menu">
-    <div class="menu_left">
 
-    </div>
-    <div class="menu_right">
-        <nav id="menu1">
-            <ul class="cats">
-                {% for m in nav_menu %}
-                    <li><a href="{% url m.url_name %}">{{ m.title }}</a></li>
-                {% endfor %}
-                <li><form method="post" action="{% url 'users:logout' %}">
-                    {% csrf_token %}
-                    <button type="submit">logout</button>
-                </form></li>
-
-            </ul>
-        </nav>
-    </div>
-</div>
+{% get_nav_menu %}
 
 <div class="content">
-    <div class="content_left">
-        <ul>
-            {% for c in categories %}
-                <li> <a href="{{ c.get_absolute_url }}">{{ c }}</a> </li>
-            {% endfor %}
-        </ul>
-    </div>
+    {% get_categories %}
     <div class="content_right">
 {% block content %}
 
