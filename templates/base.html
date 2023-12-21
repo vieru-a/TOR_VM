@@ -24,6 +24,11 @@
                 {% for m in nav_menu %}
                     <li><a href="{% url m.url_name %}">{{ m.title }}</a></li>
                 {% endfor %}
+                <li><form method="post" action="{% url 'users:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">logout</button>
+                </form></li>
+
             </ul>
         </nav>
     </div>
