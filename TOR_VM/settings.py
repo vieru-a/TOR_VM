@@ -139,3 +139,7 @@ MEDIA_URL = 'TOR_VM_store/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'TOR_VM_store/media')
 
 LOGOUT_REDIRECT_URL = 'store_main'
+
+AUTHENTICATION_BACKENDS = [
+    'users.authentication.EmailAuthBackend',
+]

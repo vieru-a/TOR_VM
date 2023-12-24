@@ -38,6 +38,15 @@ body{
     text-decoration: none;
 }
 
+.nav_menu li.active{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    background-color: darkorange;
+}
+
 .nav_menu li.nav_username {
     display: block;
     color: white;
@@ -54,7 +63,6 @@ body{
     background-color: #256CB3;
     border: none;
     display: block;
-
 }
 
 /* Change the link color on hover */
@@ -66,8 +74,6 @@ body{
     background-color: #9eb2d9;
 }
 
-
-
 .content{
     position: fixed;
     top:190px;
@@ -77,7 +83,7 @@ body{
     position: fixed;
     left:0;
     width:25%;
-    height:75%;
+    height:100%;
     background: #f1f1f1;
 }
 
@@ -85,7 +91,7 @@ body{
     position: fixed;
     left:25%;
     width:75%;
-    height:75%;
+    height:100%;
     background:#fff;
     overflow-x: scroll;
 }
@@ -105,7 +111,7 @@ li a {
 }
 
 li a.active {
-    background-color: #04AA6D;
+    background-color: darkorange;
     color: white;
 }
 
