@@ -9,6 +9,7 @@ class ProductsList(ListView):
     model = Product
     template_name = 'TOR_VM_store/store_main.html'
     context_object_name = 'data'
+    extra_context = {'nav_selected': 0}
 
     # def get_context_data(self, *, object_list=None, **kwargs):
     #     context = super().get_context_data(**kwargs)
