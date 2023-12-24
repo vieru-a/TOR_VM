@@ -1,7 +1,7 @@
 <div class="content_left">
     <ul>
-        {% for c in category %}
-            <li> <a href="{{ c.get_absolute_url }}">{{ c }}</a> </li>
+        {% for menu_cat in menu_category %}
+            <li> <a href="{{ menu_cat.get_absolute_url }}">{{ menu_cat }}</a> </li>
         {% endfor %}
     </ul>
 </div>
