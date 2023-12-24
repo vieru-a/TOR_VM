@@ -1,7 +1,11 @@
 <div class="content_left">
-    <ul>
+    <ul class="categories">
         {% for menu_cat in menu_category %}
-            <li> <a href="{{ menu_cat.get_absolute_url }}">{{ menu_cat }}</a> </li>
+            {% if menu_cat.id == cat_selected %}
+                <li style="background-color: darkorange"><a href="{{ menu_cat.get_absolute_url }}">{{ menu_cat }}</a></li>
+            {% else %}
+                <li><a href="{{ menu_cat.get_absolute_url }}">{{ menu_cat }}</a></li>
+            {% endif %}
         {% endfor %}
     </ul>
 </div>

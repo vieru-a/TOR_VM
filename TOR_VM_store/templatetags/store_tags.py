@@ -14,18 +14,16 @@ def get_nav_menu(user, nav_selected=0):
     ]
     reg = {'id': 3, 'title': 'Регистрация'}
     login = {'id': 4, 'title': 'Войти'}
-    logout = {'id': 4, 'title': 'Выйти'}
     return {'nav_menu': nav_menu,
             'user': user,
             'reg': reg,
             'login': login,
-            'logout': logout,
             'nav_selected': nav_selected,
             }
 
 
 @register.inclusion_tag('TOR_VM_store/includes/categories.html')
-def get_categories():
+def get_categories(cat_selected):
     category = Category.objects.filter(type='category')
-    return {'menu_category': category}
+    return {'menu_category': category, 'cat_selected': cat_selected}
 
