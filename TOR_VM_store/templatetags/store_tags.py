@@ -14,10 +14,12 @@ def get_nav_menu(user, nav_selected=0):
     ]
     reg = {'id': 3, 'title': 'Регистрация'}
     login = {'id': 4, 'title': 'Войти'}
+    profile = {'id': 4, 'title': 'Профиль'}
     return {'nav_menu': nav_menu,
             'user': user,
             'reg': reg,
             'login': login,
+            'profile': profile,
             'nav_selected': nav_selected,
             }
 

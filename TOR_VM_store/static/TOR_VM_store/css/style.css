@@ -82,17 +82,18 @@ body{
 .content_left{
     position: fixed;
     left:0;
-    width:25%;
+    width:24%;
     height:100%;
     background: #f1f1f1;
 }
 
 .content_right{
     position: fixed;
-    left:25%;
+    left:24%;
     width:75%;
     height:100%;
     background:#fff;
+    padding-left: 20px;
     overflow-x: scroll;
 }
 

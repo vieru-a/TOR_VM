@@ -8,7 +8,11 @@
             {% endif %}
         {% endfor %}
         {% if user.is_authenticated %}
-            <li class="nav_username">{{ user.username }}</li>
+            {% if profile.id == nav_selected %}
+                <li class="active">{{ user.username }}</li>
+            {% else %}
+                <li><a href="{% url 'users:profile' %}">{{ user.username }}</a></li>
+            {% endif %}
             <li>
                 <form method="post" action="{% url 'users:logout' %}">
                 {% csrf_token %}
