@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'mptt',
+    'phonenumbers',
 ]
 
 MIDDLEWARE = [
@@ -155,3 +156,6 @@ EMAIL_USE_SSL = env('EMAIL_USE_SSL')
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 SERVER_EMAIL = env('SERVER_EMAIL')
 EMAIL_ADMIN = env('EMAIL_ADMIN')
+
+AUTH_USER_MODEL = 'users.User'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'

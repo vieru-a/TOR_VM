@@ -9,9 +9,9 @@
         {% endfor %}
         {% if user.is_authenticated %}
             {% if profile.id == nav_selected %}
-                <li class="active">{{ user.username }}</li>
+                <li class="active">{{ user.email }}</li>
             {% else %}
-                <li><a href="{% url 'users:profile' %}">{{ user.username }}</a></li>
+                <li><a href="{% url 'users:profile' %}">{{ user.email }}</a></li>
             {% endif %}
             <li>
                 <form method="post" action="{% url 'users:logout' %}">
