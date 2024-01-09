@@ -63,11 +63,10 @@ class User(AbstractUser):
 
     first_name = models.CharField(max_length=150, verbose_name='Имя')
     last_name = models.CharField(max_length=150, verbose_name='Фамилия')
-    phoneNumberRegex = RegexValidator(regex=r"^\+?1?\d{8,15}$")
     phone_number = PhoneNumberField(unique=True,
                                     verbose_name='Номер телефона',
                                     error_messages={"unique": "Пользователь с таким номером уже существует.",
-                                                    "invalid": "Введите корректный номер телефона (+79035743801)"})
+                                                    "invalid": "Введите корректный номер телефона (+79999999999)"})
     fax = models.CharField(max_length=150, null=True, blank=True,  verbose_name='Факс')
     company = models.CharField(max_length=150, null=True, blank=True,  verbose_name='Компания')
     address1 = models.CharField(max_length=255, verbose_name='Адрес')
