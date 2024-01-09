@@ -1,5 +1,6 @@
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.core.validators import RegexValidator
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django_countries.fields import CountryField
@@ -49,43 +50,31 @@ class User(AbstractUser):
                               unique=True,
                               error_messages={"unique": "Пользователь с таким e-mail уже существует."})
 
-    # направление бизнеса (физ/юр)
-    business_type_choices = [('individuals', 'Физические лица'),
-                             ('legal_entities', 'Юридические лица')]
+    business_type_choices = (('individuals', 'Физические лица'),
+                             ('legal_entities', 'Юридические лица'))
 
-    business_type = models.CharField(choices=business_type_choices, verbose_name='Направление бизнеса')
+    business_type = models.CharField(choices=business_type_choices, default='individuals', verbose_name='Направление бизнеса')
 
-    # если юр лицо (Юр наименование, ИНН, КПП, ЮР.АДРЕС, Файл с контактами)
     legal_name = models.CharField(max_length=255, default='-', verbose_name='Юр. наименование')
     inn = models.CharField(max_length=255, default='-',  verbose_name='ИНН')
     kpp = models.CharField(max_length=255, default='-',  verbose_name='КПП')
     legal_address = models.CharField(max_length=255, default='-',  verbose_name='Юр. адрес')
     file_with_contacts = models.FileField(max_length=255, default='-',  verbose_name='Файл с контактами')
 
-    # имя
     first_name = models.CharField(max_length=150, verbose_name='Имя')
-    # фамилия
     last_name = models.CharField(max_length=150, verbose_name='Фамилия')
-    # телефон
+    phoneNumberRegex = RegexValidator(regex=r"^\+?1?\d{8,15}$")
     phone_number = PhoneNumberField(unique=True,
                                     verbose_name='Номер телефона',
                                     error_messages={"unique": "Пользователь с таким номером уже существует.",
                                                     "invalid": "Введите корректный номер телефона (+79035743801)"})
-    # факс
-    fax = models.CharField(max_length=150, verbose_name='Факс')
-    # компания
-    company = models.CharField(max_length=150, verbose_name='Компания')
-    # адрес 1
+    fax = models.CharField(max_length=150, null=True, blank=True,  verbose_name='Факс')
+    company = models.CharField(max_length=150, null=True, blank=True,  verbose_name='Компания')
     address1 = models.CharField(max_length=255, verbose_name='Адрес')
-    # адрес 2
     address2 = models.CharField(max_length=255, null=True, blank=True, verbose_name='Дополнительный адрес')
-    # город
     city = models.CharField(max_length=150, verbose_name='Город')
-    # индекс
-    index = models.CharField(max_length=150, verbose_name='Индекс')
-    # страна (выкидное меню)
-    country = CountryField(default='ru', verbose_name='Страна')
-    # рассылка
+    index = models.CharField(max_length=150, null=True, blank=True,  verbose_name='Индекс')
+    country = CountryField(default='RU', verbose_name='Страна')
     mailing = models.BooleanField(default=False, verbose_name='Рассылка новостей')
 
     objects = UserManager()

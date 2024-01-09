@@ -19,7 +19,9 @@ class LoginUser(LoginView):
 class RegisterUser(CreateView):
     form_class = RegisterUserForm
     template_name = 'users/register.html'
-    extra_context = {'title': 'Регистрация', 'nav_selected': 3}
+    extra_context = {'title': 'Регистрация',
+                     'nav_selected': 3,
+                     'select_fields': 'legal_nameinnkpplegal_addressfile_with_contacts'}
     success_url = reverse_lazy('users:login')
 
 
@@ -27,7 +29,9 @@ class ProfileUser(LoginRequiredMixin, UpdateView):
     model = get_user_model()
     form_class = ProfileUserForm
     template_name = 'users/profile.html'
-    extra_context = {'title': 'Профиль пользователя', 'nav_selected': 4}
+    extra_context = {'title': 'Профиль пользователя',
+                     'nav_selected': 4,
+                     'select_fields': 'legal_nameinnkpplegal_addressfile_with_contacts'}
 
     def get_success_url(self):
         return reverse_lazy('users:profile')

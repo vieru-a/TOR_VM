@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
- 
+{% load static %}
+
 {% block content %}
 
     <h1>Профиль</h1>
+
+    <script src="{% static 'TOR_VM_store/js/main.js' %}"></script>
 
     <form method="post">
 
@@ -11,11 +14,21 @@
         <div class="form-error">{{ form.non_field_errors }}</div>
 
         {% for f in form %}
-            <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
-            <div class="form-error">{{ f.errors }}</div>
+            {% if form.business_type.value == 'individuals' %}
+                {% if f.name in select_fields %}
+                    <p class="type-select"><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+                    <div class="form-error">{{ f.errors }}</div>
+                {% else %}
+                    <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+                    <div class="form-error">{{ f.errors }}</div>
+                {% endif %}
+            {% else %}
+                <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+                <div class="form-error">{{ f.errors }}</div>
+            {% endif %}
         {% endfor %}
 
-        <p ><button type="submit">Сохранить</button></p>
+        <p><button type="submit">Сохранить</button></p>
 
         <hr>
 
