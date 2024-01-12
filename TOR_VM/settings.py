@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'TOR_VM_store.apps.TorVmStoreConfig',
     'TOR_VM_site.apps.TorVmSiteConfig',
     'users.apps.UsersConfig',
+    'feedback.apps.FeedbackConfig',
     'django_extensions',
     'rest_framework',
     'mptt',

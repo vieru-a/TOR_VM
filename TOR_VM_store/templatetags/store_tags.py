@@ -9,7 +9,7 @@ register = template.Library()
 def get_nav_menu(user, nav_selected=0):
     nav_menu = [
         {'id': 0, 'url_name': 'store_main', 'title': 'Главная'},
-        {'id': 1, 'url_name': 'store_main', 'title': 'Обратная связь'},
+        {'id': 1, 'url_name': 'feedback:feedback_page', 'title': 'Обратная связь'},
         {'id': 2, 'url_name': 'store_main', 'title': 'Корзина'},
     ]
     reg = {'id': 3, 'title': 'Регистрация'}

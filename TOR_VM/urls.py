@@ -18,7 +18,6 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-import TOR_VM_store.urls
 from TOR_VM import settings
 
 from django.views.static import serve as mediaserve
@@ -27,7 +26,8 @@ from django.urls import re_path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('TOR_VM_store.urls')),
-    path('users/', include('users.urls', namespace='users'))
+    path('users/', include('users.urls', namespace='users')),
+    path('feedback/', include('feedback.urls', namespace='feedback')),
 ]
 
 
