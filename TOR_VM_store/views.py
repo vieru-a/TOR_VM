@@ -22,7 +22,10 @@ class CategoryDetail(DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['products'] = self.object.product_set.all()
-        context['cat_selected'] = self.object.id
+        if self.object.parent_id:
+            context['cat_selected'] = self.object.parent_id
+        else:
+            context['cat_selected'] = self.object.id
         return context
 
 
@@ -32,3 +35,11 @@ class ProductDetail(DetailView):
     context_object_name = 'product'
     slug_url_kwarg = 'product_slug'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if self.object.cat.parent_id:
+            context['cat_selected'] = self.object.cat.parent_id
+        else:
+            context['cat_selected'] = self.object.cat_id
+        return context

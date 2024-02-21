@@ -2,7 +2,7 @@
     <ul class="categories">
         {% for menu_cat in menu_category %}
             {% if menu_cat.id == cat_selected %}
-                <li><a class="active">{{ menu_cat }}</a></li>
+                <li><a class="active" href="{{ menu_cat.get_absolute_url }}">{{ menu_cat }}</a></li>
             {% else %}
                 <li><a href="{{ menu_cat.get_absolute_url }}">{{ menu_cat }}</a></li>
             {% endif %}
