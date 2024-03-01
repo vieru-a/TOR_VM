@@ -43,9 +43,10 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
 
+# поле может быть пустым для БД, но обязательным для заполнения в форме?
 class User(AbstractUser):
     username = None
-    email = models.EmailField(verbose_name='email',
+    email = models.EmailField(verbose_name='E-mail',
                               max_length=150,
                               unique=True,
                               error_messages={"unique": "Пользователь с таким e-mail уже существует."})
@@ -55,11 +56,11 @@ class User(AbstractUser):
 
     business_type = models.CharField(choices=business_type_choices, default='individuals', verbose_name='Направление бизнеса')
 
-    legal_name = models.CharField(max_length=255, default='-', verbose_name='Юр. наименование')
-    inn = models.CharField(max_length=255, default='-',  verbose_name='ИНН')
-    kpp = models.CharField(max_length=255, default='-',  verbose_name='КПП')
-    legal_address = models.CharField(max_length=255, default='-',  verbose_name='Юр. адрес')
-    file_with_contacts = models.FileField(max_length=255, default='-',  verbose_name='Файл с контактами')
+    legal_name = models.CharField(max_length=255, blank=True, verbose_name='Юр. наименование')
+    inn = models.CharField(max_length=255, blank=True, verbose_name='ИНН')
+    kpp = models.CharField(max_length=255, blank=True, verbose_name='КПП')
+    legal_address = models.CharField(max_length=255, blank=True, verbose_name='Юр. адрес')
+    file_with_contacts = models.FileField(upload_to='media/users_files/', max_length=255, blank=True, verbose_name='Файл с контактами')
 
     first_name = models.CharField(max_length=150, verbose_name='Имя')
     last_name = models.CharField(max_length=150, verbose_name='Фамилия')
@@ -67,12 +68,12 @@ class User(AbstractUser):
                                     verbose_name='Номер телефона',
                                     error_messages={"unique": "Пользователь с таким номером уже существует.",
                                                     "invalid": "Введите корректный номер телефона (+79999999999)"})
-    fax = models.CharField(max_length=150, null=True, blank=True,  verbose_name='Факс')
-    company = models.CharField(max_length=150, null=True, blank=True,  verbose_name='Компания')
+    fax = models.CharField(max_length=150, blank=True, verbose_name='Факс')
+    company = models.CharField(max_length=150, blank=True, verbose_name='Компания')
     address1 = models.CharField(max_length=255, verbose_name='Адрес')
-    address2 = models.CharField(max_length=255, null=True, blank=True, verbose_name='Дополнительный адрес')
+    address2 = models.CharField(max_length=255, blank=True, verbose_name='Дополнительный адрес')
     city = models.CharField(max_length=150, verbose_name='Город')
-    index = models.CharField(max_length=150, null=True, blank=True,  verbose_name='Индекс')
+    index = models.CharField(max_length=150, blank=True, verbose_name='Индекс')
     country = CountryField(default='RU', verbose_name='Страна')
     mailing = models.BooleanField(default=False, verbose_name='Рассылка новостей')
 

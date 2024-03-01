@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, Pass
 
 
 class LoginUserForm(AuthenticationForm):
-    username = forms.CharField(label='E-mail', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    username = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     error_messages = {"invalid_login": (
             "Пожалуйста, введите правильные почту и пароль. "
@@ -12,7 +12,6 @@ class LoginUserForm(AuthenticationForm):
 
     class Meta:
         model = get_user_model()
-        fields = ['username', 'password']
 
 
 class RegisterUserForm(UserCreationForm):
@@ -46,8 +45,11 @@ class RegisterUserForm(UserCreationForm):
 
 
 class ProfileUserForm(forms.ModelForm):
-    email = forms.CharField(disabled=True, label='E-mail', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    phone_number = forms.CharField(disabled=True, label='Номер телефона', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    email = forms.CharField(label='E-Mail', disabled=True, widget=forms.TextInput(attrs={'class': 'form-input'}))
+    phone_number = forms.CharField(label='Номер телефона', disabled=True, widget=forms.TextInput(attrs={'class': 'form-input'}))
+    business_type = forms.ChoiceField(label='Тип бизнеса', disabled=True, widget=forms.Select(attrs={'class': 'form-input'}),
+                                      choices={'individuals': 'Физические лица',
+                                               'legal_entities': 'Юридические лица'})
 
     class Meta:
         model = get_user_model()
@@ -57,7 +59,6 @@ class ProfileUserForm(forms.ModelForm):
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-input'}),
             'last_name': forms.TextInput(attrs={'class': 'form-input'}),
-            'business_type': forms.Select(attrs={'disabled': 'disabled'}),
             'legal_name': forms.TextInput(attrs={'class': 'form-input'}),
             'inn': forms.TextInput(attrs={'class': 'form-input'}),
             'kpp': forms.TextInput(attrs={'class': 'form-input'}),
