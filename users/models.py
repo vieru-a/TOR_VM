@@ -1,6 +1,5 @@
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-from django.core.validators import RegexValidator
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django_countries.fields import CountryField
@@ -43,7 +42,6 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
 
-# поле может быть пустым для БД, но обязательным для заполнения в форме?
 class User(AbstractUser):
     username = None
     email = models.EmailField(verbose_name='E-mail',

@@ -17,7 +17,7 @@ def save_product(product, category):
 
 def run():
 
-    with open('TOR_VM_store/media/data.json', 'r') as f:
+    with open('media/products/data.json', 'r') as f:
         data = json.load(f)
 
     for d in data:

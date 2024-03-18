@@ -107,26 +107,26 @@ def save_image(url, name, path):
 
     image = requests.get(url).content
     image_path = f'{path}/{name}.jpg'
+    print(image_path)
 
     with open(image_path, 'wb') as f:
         f.write(image)
 
-    return image_path.lstrip('TOR_VM_store/media/')
+    return image_path.lstrip('media/')
 
 
 def run():
-    if not os.path.isdir('TOR_VM_store/media'):
-        os.mkdir('TOR_VM_store/media')
+    if not os.path.isdir('media/products'):
+        os.mkdir('media/products')
 
     data = []
-    categories_data = []
     main_page = get_soup('https://mikond.top/index.php?route=product/category&path=136')
 
     for category_href in get_hrefs_list(main_page, 'image'):
         category_soup = get_soup(category_href)
 
         category_name = category_soup.find('div', {'class': 'col-sm-9'}).find('h2').text
-        category_path = get_path('TOR_VM_store/media', category_name)
+        category_path = get_path('media/products', category_name)
         current_data = save_category(category_href, category_path)
         subcategories_data = []
         products_data = []
@@ -161,5 +161,5 @@ def run():
 
         data.append(current_data)
 
-    with open('TOR_VM_store/media/data.json', 'w', encoding='utf-8') as f:
+    with open('media/products/data.json', 'w', encoding='utf-8') as f:
         json.dump(data, f)

@@ -1,5 +1,6 @@
 from django.core.mail import send_mail
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
@@ -23,4 +24,4 @@ class FeedbackView(CreateView):
 
 
 def success(request):
-    return HttpResponse('Письмо отправлено!')
+    return render(request, 'feedback/feedback_success.html')

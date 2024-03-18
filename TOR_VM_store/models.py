@@ -24,12 +24,12 @@ def get_image_path(instance, filename):
         upload_dir = os.path.join(instance.name)
         if os.path.exists(upload_dir):
             os.makedirs(upload_dir)
-        return os.path.join(upload_dir, filename)
+        return f'products/{os.path.join(upload_dir, filename)}'
     else:
         upload_dir = os.path.join(instance.cat.name, instance.name)
         if os.path.exists(upload_dir):
             os.makedirs(upload_dir)
-        return os.path.join(upload_dir, filename)
+        return f'products/{os.path.join(upload_dir, filename)}'
 
 
 class Product(models.Model):
@@ -42,10 +42,9 @@ class Product(models.Model):
     is_available = models.BooleanField(default=True, verbose_name='В наличии')
     cat = TreeForeignKey('Category', on_delete=models.PROTECT, verbose_name='Категория')
 
-    # подумать над обработкой слага с артикулом
     def save(self, *args, **kwargs):
         if not self.slug:
-            slug_string = re.sub('.', '_', self.article_number)
+            slug_string = self.article_number.replace('.', '_')
             self.slug = get_slug(slug_string, Product)
         return super().save(*args, **kwargs)
 
