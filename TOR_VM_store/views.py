@@ -1,16 +1,13 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView, UpdateView
 
+from cart.forms import CartAddProductForm
 from .models import Product, Category
 
 
-class ProductsList(ListView):
-    model = Product
+class ProductsList(TemplateView):
     template_name = 'TOR_VM_store/store_main.html'
     context_object_name = 'data'
     extra_context = {'nav_selected': 0}
-
-    def get_queryset(self):
-        return Product.objects.all()[0:9]
 
 
 class CategoryDetail(DetailView):
@@ -42,4 +39,6 @@ class ProductDetail(DetailView):
             context['cat_selected'] = self.object.cat.parent_id
         else:
             context['cat_selected'] = self.object.cat_id
+
+        context['cart_product_form'] = CartAddProductForm()
         return context

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'mptt',
     'phonenumbers',
+    'cart.apps.CartConfig',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -163,3 +165,5 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 PHONENUMBER_DEFAULT_REGION = 'RU'
 PHONENUMBER_DEFAULT_FORMAT = "INTERNATIONAL"
+
+CART_SESSION_ID = 'cart'

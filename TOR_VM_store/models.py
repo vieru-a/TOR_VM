@@ -1,6 +1,4 @@
 import os
-import re
-
 from django.urls import reverse
 from transliterate import translit
 

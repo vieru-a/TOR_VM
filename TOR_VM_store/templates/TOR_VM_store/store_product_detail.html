@@ -8,8 +8,14 @@
     </div>
     <div class="cat-description">
         <p> Артикул: {{ product.article_number }} </p>
-        <p> Цена: {{ product.price }} руб. </p>
         <p> Описание: {{ product.description }} </p>
+        <p> Цена: {{ product.price }} руб. </p>
+
+        <form action="{% url "cart:cart_add" product.id %}" method="post">
+            {{ cart_product_form.as_p }}
+            {% csrf_token %}
+            <input type="submit" value="Add to cart">
+        </form>
     </div>
 
 {% endblock content %}
