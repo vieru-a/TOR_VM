@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'mptt',
     'phonenumbers',
     'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig',
 ]
 
 MIDDLEWARE = [
