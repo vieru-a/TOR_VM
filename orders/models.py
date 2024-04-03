@@ -14,6 +14,9 @@ class Order(models.Model):
     address1 = models.CharField(max_length=255, verbose_name='Адрес')
     city = models.CharField(max_length=150, verbose_name='Город')
     country = CountryField(default='RU', verbose_name='Страна')
+
+    # СВЯЗЬ С ПОЛЬЗОВАТЕЛЕМ
+
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)

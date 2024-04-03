@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
+from TOR_VM.settings import EMAIL_HOST_USER
+
 from feedback.forms import FeedbackForm
 from feedback.models import Feedback
 
@@ -16,7 +18,7 @@ class FeedbackView(CreateView):
     def form_valid(self, form):
         data = form.data
         subject = f'Сообщение с формы от {data["first_name"]} {data["last_name"]} Почта отправителя: {data["email"]}'
-        send_mail(subject, data['message'], 'djangomailtest7@yandex.ru', ['djangomailtest7@yandex.ru'])
+        send_mail(subject, data['message'], EMAIL_HOST_USER, [EMAIL_HOST_USER])
         return super().form_valid(form)
 
     def get_success_url(self):

@@ -179,3 +179,12 @@ li a:hover:not(.active) {
 .type-select{
 	display:none;
 }
+
+th.cart{
+    width: 150px;
+    text-align: center;
+}
+
+td.num{
+    text-align: center;
+}

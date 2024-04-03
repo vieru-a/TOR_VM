@@ -1,10 +1,10 @@
-from django.contrib.auth import get_user_model
 from django.shortcuts import render
 from django.views.generic import FormView
 
 from cart.cart import Cart
 from .forms import OrderCreateForm
 from .models import OrderItem
+from .tasks import order_created
 
 
 class OrderCreate(FormView):
@@ -37,5 +37,7 @@ class OrderCreate(FormView):
                                          product=item['product'],
                                          price=item['price'],
                                          quantity=item['quantity'])
+            # на почту не приходит письмо
             cart.clear()
+            order_created.delay(order.id)
             return render(request, 'orders/created.html', {'order': order})

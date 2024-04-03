@@ -2,55 +2,49 @@
 {% load static %}
 
 {% block content %}
-    <h1>Your shopping cart</h1>
+    <h1>Ваша корзина</h1>
     <table class="cart">
         <thead>
         <tr>
-            <th>Image</th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Remove</th>
-            <th>Unit price</th>
-            <th>Price</th>
+            <th>Изображение продукта</th>
+            <th style="width: 320px;">Продукт</th>
+            <th class="cart">Количество</th>
+            <th class="cart">Удалить</th>
+            <th class="cart">Цена за штуку</th>
+            <th class="cart">Общая стоимость</th>
         </tr>
         </thead>
         <tbody>
         {% for item in cart %}
             {% with product=item.product %}
                 <tr>
-                    <td>
+                    <td class="num">
                         <a href="{{ product.get_absolute_url }}">
-                            <img style="width: 180px" src="
-                                {% if product.image %}
-                                    {{ product.image.url }}
-                                {% else %}
-                                    {% static "img/no_image.png" %}
-                                {% endif %}">
+                            <img style="width: 180px" src="{{ product.image.url }}" alt="Нет данных">
                         </a>
                     </td>
-                    <td>{{ product.name }}</td>
-                    <td>{{ item.quantity }}</td>
+                    <td class="num">{{ product.name }}</td>
+                    <td class="num">{{ item.quantity }}</td>
 
-                    <td><form action="{% url "cart:cart_remove" product.id %}" method="post">
+                    <td class="num"><form action="{% url "cart:cart_remove" product.id %}" method="post">
                         {{ cart_product_form.as_p }}
                         {% csrf_token %}
-                        <input type="submit" value="Remove">
+                        <input type="submit" value="Удалить">
                     </form></td>
 
-                    <td class="num">${{ item.price }}</td>
-                    <td class="num">${{ item.total_price }}</td>
+                    <td class="num">{{ item.price }} рублей</td>
+                    <td class="num">{{ item.total_price }} рублей</td>
                 </tr>
             {% endwith %}
         {% endfor %}
         <tr class="total">
-            <td>Total</td>
+            <td><h2>Итого:</h2></td>
             <td colspan="4"></td>
-            <td class="num">${{ cart.get_total_price }}</td>
+            <td class="num"><h2>{{ cart.get_total_price }} рублей</h2></td>
         </tr>
         </tbody>
     </table>
-    <p class="text-right">
-        <a href="#" class="button light">Continue shopping</a>
-        <a href="{% url "orders:order_create" %}" class="button">Checkout</a>
-    </p>
+    {% if cart.get_total_price > 0 %}
+        <h2><a href="{% url "orders:order_create" %}" class="button">Оформить заказ</a></h2>
+    {% endif %}
 {% endblock %}

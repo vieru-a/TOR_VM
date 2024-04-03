@@ -13,12 +13,11 @@
                 <li>
                 {{ cart.items }}
                 <a href="{% url 'cart:cart_detail' %}">
-                    Your cart: {{ total }} item{{ total|pluralize }},
-                    ${{ cart.get_total_price }}
+                    Корзина: {{ cart.get_total_price }} рублей
                 </a></li>
             {% else %}
                 <li>
-                    <a href="{% url 'cart:cart_detail' %}">Your cart is empty.</a>
+                    <a href="{% url 'cart:cart_detail' %}">Корзина</a>
                 </li>
             {% endif %}
         {% endwith %}
