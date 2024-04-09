@@ -11,8 +11,14 @@ class FeedbackTest(TestCase):
                      'message': 'Перезвоните мне, пожалуйста. Мой номер телефона: 89011011121'}
         return super().setUp()
 
+    def test_view_correctly(self):
+        """Проверка доступа к странице"""
+        response = self.client.get(self.page)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'feedback/feedback_page.html')
+
     def test_feedback(self):
+        """Проверка feedback"""
         response = self.client.post(self.page, self.data)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/feedback/success/')
-        self.assertTemplateUsed(self.client.get(self.page), 'feedback/feedback_page.html')

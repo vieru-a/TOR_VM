@@ -13,4 +13,5 @@ class LoginTest(BaseTest):
         self.client.post(self.register_url, self.user_register)
         response = self.client.post(self.login_url, self.user_login)
         self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/')
         self.assertEqual(response.wsgi_request.user.email, self.user_login['username'])

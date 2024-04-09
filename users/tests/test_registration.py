@@ -15,6 +15,7 @@ class RegisterTest(BaseTest):
         """Регистрация пользователя (Физическое лицо)"""
         response = self.client.post(self.register_url, self.user_register)
         self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/users/login/')
         self.assertEqual(get_user_model().objects.first().email, self.user_register['email'])
 
     def test_register_individuals_user(self):
@@ -25,6 +26,7 @@ class RegisterTest(BaseTest):
         self.user_register['index'] = '117542'
         response = self.client.post(self.register_url, self.user_register)
         self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/users/login/')
         self.assertEqual(get_user_model().objects.first().fax, '70953333333')
 
     def test_register_legal_entities_user(self):
@@ -37,4 +39,5 @@ class RegisterTest(BaseTest):
         self.user_register['file_with_contacts'] = r'C:\Users\drear\Downloads\datatype.pdf'
         response = self.client.post(self.register_url, self.user_register)
         self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/users/login/')
         self.assertEqual(get_user_model().objects.first().business_type, 'legal_entities')
