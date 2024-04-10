@@ -37,7 +37,6 @@ class OrderCreate(FormView):
                                          product=item['product'],
                                          price=item['price'],
                                          quantity=item['quantity'])
-            # на почту не приходит письмо
             cart.clear()
             order_created.delay(order.id)
             return render(request, 'orders/created.html', {'order': order})
