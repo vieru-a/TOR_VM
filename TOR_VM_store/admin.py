@@ -13,6 +13,7 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('article_number',)}
     fields = ('article_number', 'name', 'slug', 'price', 'is_available', 'cat', 'description', 'image', 'get_html_photo')
     readonly_fields = ('get_html_photo', )
+    search_fields = ('article_number', 'name', 'price')
 
     def get_html_photo(self, obj):
         return mark_safe(f"<a href='{obj.image.url}'><img src='{obj.image.url}' width=150")
@@ -28,6 +29,7 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     fields = ('name', 'slug', 'type', 'parent', 'description', 'image', 'get_html_photo')
     readonly_fields = ('get_html_photo',)
+    search_fields = ('name', )
 
     def get_html_photo(self, obj):
         return mark_safe(f"<a href='{obj.image.url}'><img src='{obj.image.url}' width=80")

@@ -1,8 +1,10 @@
 from django.contrib import admin
 
-from feedback.models import Feedback
+from .models import Feedback
 
 
 @admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('id', 'email', 'first_name', 'last_name')
+    list_display_links = ('id', 'email')
+    search_fields = ('email', 'first_name', 'last_name')

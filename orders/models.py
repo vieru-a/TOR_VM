@@ -14,12 +14,9 @@ class Order(models.Model):
     address1 = models.CharField(max_length=255, verbose_name='Адрес')
     city = models.CharField(max_length=150, verbose_name='Город')
     country = CountryField(default='RU', verbose_name='Страна')
-
-    # СВЯЗЬ С ПОЛЬЗОВАТЕЛЕМ
-
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    paid = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
+    updated = models.DateTimeField(auto_now=True, verbose_name='Обновлен')
+    paid = models.BooleanField(default=False, verbose_name='Оплачен')
 
     class Meta:
         ordering = ('-created',)
@@ -35,10 +32,11 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey('Order', on_delete=models.PROTECT, related_name='items')
-    product = models.ForeignKey('TOR_VM_store.Product', on_delete=models.PROTECT, related_name='order_items')
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    quantity = models.PositiveIntegerField(default=1)
+    order = models.ForeignKey('Order', on_delete=models.PROTECT, related_name='items', verbose_name='Заказ')
+    product = models.ForeignKey('TOR_VM_store.Product', on_delete=models.PROTECT, related_name='order_items',
+                                verbose_name='Продукт')
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
+    quantity = models.PositiveIntegerField(default=1, verbose_name='Количество')
 
     def __str__(self):
         return str(self.id)

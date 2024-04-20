@@ -27,4 +27,4 @@ class FeedbackView(CreateView):
 
 
 def success(request):
-    return render(request, 'feedback/feedback_success.html')
+    return render(request, 'feedback/feedback_success.html', {'nav_selected': 1})

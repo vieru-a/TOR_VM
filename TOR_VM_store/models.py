@@ -68,8 +68,9 @@ class Category(MPTTModel):
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
     image = models.ImageField(upload_to=get_image_path, max_length=255, verbose_name='Изображение категории')
     description = models.TextField(max_length=1000, verbose_name='Описание категории')
-    type = models.CharField(choices=type_choices, max_length=255)
-    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    type = models.CharField(choices=type_choices, max_length=255, verbose_name='Тип категории')
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children',
+                            verbose_name='Категория')
 
     def save(self, *args, **kwargs):
         if not self.slug:
