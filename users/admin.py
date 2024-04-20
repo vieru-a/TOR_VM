@@ -50,6 +50,7 @@ class MyUserAdmin(UserAdmin):
     )
 
     list_display = ("id", "email", "phone_number", "first_name", "last_name")
+    list_display_links = ("id", "email")
     list_filter = ("is_staff", "is_superuser", "is_active", "groups")
     search_fields = ("email", "phone_number", "first_name", "last_name")
     ordering = ("email", )
