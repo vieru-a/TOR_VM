@@ -13,7 +13,7 @@ class OrderCreate(FormView):
 
     def get(self, request, *args, **kwargs):
         cart = Cart(request)
-        return render(request, self.template_name, {'cart': cart, 'form': self.form_class})
+        return render(request, self.template_name, {'cart': cart, 'form': self.form_class, 'nav_selected': 2})
 
     def post(self, request, *args, **kwargs):
         cart = Cart(request)
@@ -39,4 +39,4 @@ class OrderCreate(FormView):
                                          quantity=item['quantity'])
             cart.clear()
             order_created.delay(order.id)
-            return render(request, 'orders/created.html', {'order': order})
+            return render(request, 'orders/created.html', {'order': order, 'nav_selected': 2})

@@ -30,7 +30,7 @@ class ProfileUser(LoginRequiredMixin, UpdateView):
     form_class = ProfileUserForm
     template_name = 'users/profile.html'
     extra_context = {'title': 'Профиль пользователя',
-                     'nav_selected': 4,
+                     'nav_selected': 3,
                      'select_fields': 'legal_nameinnkpplegal_addressfile_with_contacts'}
 
     def get_success_url(self):
@@ -44,4 +44,4 @@ class PasswordChangeUser(PasswordChangeView):
     form_class = UserPasswordChangeForm
     success_url = reverse_lazy('users:password_change_done')
     template_name = 'users/password_change_form.html'
-    extra_context = {'title': 'Изменение пароля', 'nav_selected': 4}
+    extra_context = {'title': 'Изменение пароля', 'nav_selected': 3}

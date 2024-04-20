@@ -10,6 +10,7 @@ from .forms import CartAddProductForm
 class CartDetail(FormView):
     form_class = CartAddProductForm
     template_name = 'cart/detail.html'
+    extra_context = {'nav_selected': 2}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

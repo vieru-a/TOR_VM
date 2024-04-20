@@ -14,6 +14,7 @@ class FeedbackView(CreateView):
     model = Feedback
     form_class = FeedbackForm
     template_name = 'feedback/feedback_page.html'
+    extra_context = {'nav_selected': 1}
 
     def form_valid(self, form):
         data = form.data
