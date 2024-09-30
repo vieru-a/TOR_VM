@@ -1,13 +1,15 @@
+from django.core.exceptions import ValidationError
 from django.shortcuts import render
-from django.views.generic import FormView
+from django.urls import reverse_lazy
+from django.views.generic import FormView, CreateView
 
 from cart.cart import Cart
 from .forms import OrderCreateForm
-from .models import OrderItem
+from .models import OrderItem, Order
 from .tasks import order_created
 
 
-class OrderCreate(FormView):
+class OrderCreate(CreateView):
     form_class = OrderCreateForm
     template_name = 'orders/create.html'
 
@@ -17,26 +19,29 @@ class OrderCreate(FormView):
 
     def post(self, request, *args, **kwargs):
         cart = Cart(request)
+        order = None
         if request.user.is_authenticated:
             user = request.user
-            anon_user = {'first_name': user.first_name,
-                         'last_name': user.last_name,
-                         'phone_number': user.phone_number,
-                         'email': user.email,
-                         'address1': user.address1,
-                         'city': user.city,
-                         'country': user.country}
-            form = self.form_class(anon_user)
+            order = Order.objects.create(first_name=user.first_name,
+                                         last_name=user.last_name,
+                                         phone_number=user.phone_number,
+                                         email=user.email,
+                                         address1=user.address1,
+                                         city=user.city,
+                                         country=user.country,
+                                         user=user)
         else:
             form = self.form_class(request.POST)
+            if form.is_valid():
+                order = form.save()
+            else:
+                return render(request, self.template_name, {'cart': cart, 'form': form, 'nav_selected': 2})
 
-        if form.is_valid():
-            order = form.save()
-            for item in cart:
-                OrderItem.objects.create(order=order,
-                                         product=item['product'],
-                                         price=item['price'],
-                                         quantity=item['quantity'])
-            cart.clear()
-            order_created.delay(order.id)
-            return render(request, 'orders/created.html', {'order': order, 'nav_selected': 2})
+        for item in cart:
+            OrderItem.objects.create(order=order,
+                                     product=item['product'],
+                                     price=item['price'],
+                                     quantity=item['quantity'])
+        cart.clear()
+        order_created.delay(order.id)
+        return render(request, 'orders/created.html', {'order': order, 'nav_selected': 2})
