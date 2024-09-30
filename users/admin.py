@@ -1,6 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+
+from orders.models import Order
 from users.models import User
+
+
+class OrderInline(admin.TabularInline):
+    model = Order
+    fields = ['id', 'paid']
 
 
 @admin.register(User)
@@ -54,3 +61,4 @@ class MyUserAdmin(UserAdmin):
     list_filter = ("is_staff", "is_superuser", "is_active", "groups")
     search_fields = ("email", "phone_number", "first_name", "last_name")
     ordering = ("email", )
+    inlines = [OrderInline]
